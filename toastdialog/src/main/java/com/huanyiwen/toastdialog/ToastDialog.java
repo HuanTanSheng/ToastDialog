@@ -119,7 +119,7 @@ public class ToastDialog extends BottomSheetDialog {
 
     public static void show(final String msg) {
         Activity cxt = EToastUtils.getInstance().getActivity();
-        if (null == EToastUtils.getInstance().getActivity()) {
+        if (null == cxt) {
             EToastUtils.show(msg);
             return;
         }
