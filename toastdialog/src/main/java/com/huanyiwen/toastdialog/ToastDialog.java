@@ -143,7 +143,7 @@ public class ToastDialog extends BottomSheetDialog {
         }
     }
 
-    public static void show( @StringRes final int msg) {
+    public static void show(@StringRes final int msg) {
         Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
             EToastUtils.show(msg);
@@ -192,7 +192,7 @@ public class ToastDialog extends BottomSheetDialog {
         }
     }
 
-    public static void show( @StringRes int msg, final OnBtnClickListener listener) {
+    public static void show(@StringRes int msg, final OnBtnClickListener listener) {
         Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
             EToastUtils.show(msg);
