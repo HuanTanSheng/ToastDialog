@@ -118,97 +118,121 @@ public class ToastDialog extends BottomSheetDialog {
     }
 
     public static void show(final String msg) {
-        Activity cxt = EToastUtils.getInstance().getActivity();
+        final Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
             return;
         }
-        final ToastDialog toast = new ToastDialog(cxt, msg);
-        toast.setCancelable(true);
-        toast.setCanceledOnTouchOutside(true);
-        try {
-            toast.show();
-            toast.tvMsg.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        toast.dismiss();
-                    } catch (Exception e) {
-                        EToastUtils.show(msg);
-                    }
+        cxt.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final ToastDialog toast = new ToastDialog(cxt, msg);
+                toast.setCancelable(true);
+                toast.setCanceledOnTouchOutside(true);
+                try {
+                    toast.show();
+                    toast.tvMsg.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                toast.dismiss();
+                            } catch (Exception e) {
+                                EToastUtils.show(msg);
+                            }
+                        }
+                    }, 2000);
+                } catch (Exception e) {
+                    EToastUtils.show(msg);
                 }
-            }, 2000);
-        } catch (Exception e) {
-            EToastUtils.show(msg);
-        }
+            }
+        });
+
     }
 
     public static void show(@StringRes final int msg) {
-        Activity cxt = EToastUtils.getInstance().getActivity();
+        final Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
             return;
         }
-        final ToastDialog toast = new ToastDialog(cxt, msg);
-        toast.setCancelable(true);
-        toast.setCanceledOnTouchOutside(true);
-        try {
-            toast.show();
-            toast.tvMsg.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        toast.dismiss();
-                    } catch (Exception e) {
-                        EToastUtils.show(msg);
-                    }
+        cxt.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final ToastDialog toast = new ToastDialog(cxt, msg);
+                toast.setCancelable(true);
+                toast.setCanceledOnTouchOutside(true);
+                try {
+                    toast.show();
+                    toast.tvMsg.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                toast.dismiss();
+                            } catch (Exception e) {
+                                EToastUtils.show(msg);
+                            }
+                        }
+                    }, 2000);
+                } catch (Exception e) {
+                    EToastUtils.show(msg);
                 }
-            }, 2000);
-        } catch (Exception e) {
-            EToastUtils.show(msg);
-        }
+            }
+        });
+
     }
 
-    public static void show(String msg, final OnBtnClickListener listener) {
-        Activity cxt = EToastUtils.getInstance().getActivity();
+    public static void show(final String msg, final OnBtnClickListener listener) {
+        final Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
             listener.onOkClick();
             return;
         }
-        final ToastDialog toast = new ToastDialog(cxt, msg, listener);
-        toast.setCancelable(true);
-        toast.setCanceledOnTouchOutside(false);
-        toast.setOnCancelListener(new OnCancelListener() {
+        cxt.runOnUiThread(new Runnable() {
             @Override
-            public void onCancel(DialogInterface dialog) {
-                listener.onCancelClick();
+            public void run() {
+                ToastDialog toast = new ToastDialog(cxt, msg, listener);
+                toast.setCancelable(true);
+                toast.setCanceledOnTouchOutside(false);
+                toast.setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        listener.onCancelClick();
+                    }
+                });
+                try {
+                    toast.show();
+                } catch (Exception e) {
+                    listener.onOkClick();
+                }
             }
         });
-        try {
-            toast.show();
-        } catch (Exception e) {
-            listener.onOkClick();
-        }
+
     }
 
-    public static void show(@StringRes int msg, final OnBtnClickListener listener) {
-        Activity cxt = EToastUtils.getInstance().getActivity();
+    public static void show(@StringRes final int msg, final OnBtnClickListener listener) {
+        final Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
             listener.onOkClick();
             return;
         }
-        final ToastDialog toast = new ToastDialog(cxt, msg, listener);
-        toast.setCancelable(true);
-        toast.setCanceledOnTouchOutside(false);
-        toast.setOnCancelListener(new OnCancelListener() {
+        cxt.runOnUiThread(new Runnable() {
             @Override
-            public void onCancel(DialogInterface dialog) {
-                listener.onCancelClick();
+            public void run() {
+                ToastDialog toast = new ToastDialog(cxt, msg, listener);
+                toast.setCancelable(true);
+                toast.setCanceledOnTouchOutside(false);
+                toast.setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        listener.onCancelClick();
+                    }
+                });
+                try {
+                    toast.show();
+                } catch (Exception e) {
+                    listener.onOkClick();
+                }
             }
         });
-        try {
-            toast.show();
-        } catch (Exception e) {
-            listener.onOkClick();
-        }
+
     }
 
     public static ToastDialog showLoading(String msg) {
