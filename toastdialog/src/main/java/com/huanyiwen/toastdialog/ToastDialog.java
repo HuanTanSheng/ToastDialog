@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.mic.etoast2.EToastUtils;
 public class ToastDialog extends BottomSheetDialog {
 
     private TextView tvMsg;
+    private ProgressBar progressBar;
 
     private ToastDialog(@NonNull Context context) {
         super(context);
@@ -239,8 +241,8 @@ public class ToastDialog extends BottomSheetDialog {
         Activity cxt = EToastUtils.getInstance().getActivity();
         ToastDialog loading = new ToastDialog(cxt);
         View view = LayoutInflater.from(cxt).inflate(R.layout.toast_dialog_loading, null);
-        TextView tvMsg = view.findViewById(R.id.tv_msg);
-        tvMsg.setText(msg);
+        loading.tvMsg = view.findViewById(R.id.tv_msg);
+        loading.tvMsg.setText(msg);
         loading.setContentView(view);
         Window window = loading.getWindow();
         if (null != window) {
@@ -257,6 +259,27 @@ public class ToastDialog extends BottomSheetDialog {
 
     public static ToastDialog showLoading() {
         return showLoading("正在加载");
+    }
+
+    public static ToastDialog showProgress(String msg) {
+        Activity cxt = EToastUtils.getInstance().getActivity();
+        ToastDialog progressDialog = new ToastDialog(cxt);
+        View view = LayoutInflater.from(cxt).inflate(R.layout.toast_dialog_progress, null);
+        progressDialog.tvMsg = view.findViewById(R.id.tv_msg);
+        progressDialog.progressBar = view.findViewById(R.id.m_progress_bar);
+        progressDialog.tvMsg.setText(msg);
+        progressDialog.setContentView(view);
+        Window window = progressDialog.getWindow();
+        if (null != window) {
+            View v = window.findViewById(R.id.design_bottom_sheet);
+            if (null != v) {
+                v.setBackgroundResource(android.R.color.transparent);
+            }
+        }
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        return progressDialog;
     }
 
     public interface OnBtnClickListener {
