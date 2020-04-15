@@ -261,6 +261,7 @@ public class ToastDialog extends BottomSheetDialog {
         return showLoading("正在加载");
     }
 
+
     public static ToastDialog showProgress(String msg) {
         Activity cxt = EToastUtils.getInstance().getActivity();
         ToastDialog progressDialog = new ToastDialog(cxt);
