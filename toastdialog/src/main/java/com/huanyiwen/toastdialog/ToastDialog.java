@@ -17,8 +17,8 @@ import com.mic.etoast2.EToastUtils;
 
 public class ToastDialog extends BottomSheetDialog {
 
-    private TextView tvMsg;
-    private ProgressBar progressBar;
+    public TextView tvMsg;
+    public ProgressBar progressBar;
 
     private ToastDialog(@NonNull Context context) {
         super(context);
