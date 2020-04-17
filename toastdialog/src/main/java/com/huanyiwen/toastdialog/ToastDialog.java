@@ -181,6 +181,77 @@ public class ToastDialog extends BottomSheetDialog {
 
     }
 
+    public static void show(final String msg,final DismissAction action) {
+        final Activity cxt = EToastUtils.getInstance().getActivity();
+        if (null == cxt) {
+            action.action();
+            return;
+        }
+        cxt.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final ToastDialog toast = new ToastDialog(cxt, msg);
+                toast.setCancelable(false);
+                toast.setCanceledOnTouchOutside(false);
+                try {
+                    toast.show();
+                    toast.tvMsg.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                toast.dismiss();
+                                action.action();
+                            } catch (Exception e) {
+                                action.action();
+                                EToastUtils.show(msg);
+                            }
+                        }
+                    }, 2000);
+                } catch (Exception e) {
+                    action.action();
+                    EToastUtils.show(msg);
+                }
+            }
+        });
+
+    }
+
+    public static void show(@StringRes final int msg,final DismissAction action) {
+        final Activity cxt = EToastUtils.getInstance().getActivity();
+        if (null == cxt) {
+            action.action();
+            return;
+        }
+        cxt.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final ToastDialog toast = new ToastDialog(cxt, msg);
+                toast.setCancelable(false);
+                toast.setCanceledOnTouchOutside(false);
+                try {
+                    toast.show();
+                    toast.tvMsg.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                toast.dismiss();
+                                action.action();
+                            } catch (Exception e) {
+                                action.action();
+                                EToastUtils.show(msg);
+                            }
+                        }
+                    }, 2000);
+                } catch (Exception e) {
+                    action.action();
+                    EToastUtils.show(msg);
+                }
+            }
+        });
+
+    }
+
+
     public static void show(final String msg, final OnBtnClickListener listener) {
         final Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
@@ -234,10 +305,30 @@ public class ToastDialog extends BottomSheetDialog {
                 }
             }
         });
-
     }
 
+
     public static ToastDialog showLoading(String msg) {
+        Activity cxt = EToastUtils.getInstance().getActivity();
+        ToastDialog loading = new ToastDialog(cxt);
+        View view = LayoutInflater.from(cxt).inflate(R.layout.toast_dialog_loading, null);
+        loading.tvMsg = view.findViewById(R.id.tv_msg);
+        loading.tvMsg.setText(msg);
+        loading.setContentView(view);
+        Window window = loading.getWindow();
+        if (null != window) {
+            View v = window.findViewById(R.id.design_bottom_sheet);
+            if (null != v) {
+                v.setBackgroundResource(android.R.color.transparent);
+            }
+        }
+        loading.setCancelable(false);
+        loading.setCanceledOnTouchOutside(false);
+        loading.show();
+        return loading;
+    }
+
+    public static ToastDialog showLoading(@StringRes int msg) {
         Activity cxt = EToastUtils.getInstance().getActivity();
         ToastDialog loading = new ToastDialog(cxt);
         View view = LayoutInflater.from(cxt).inflate(R.layout.toast_dialog_loading, null);
@@ -283,10 +374,36 @@ public class ToastDialog extends BottomSheetDialog {
         return progressDialog;
     }
 
+    public static ToastDialog showProgress(@StringRes int msg) {
+        Activity cxt = EToastUtils.getInstance().getActivity();
+        ToastDialog progressDialog = new ToastDialog(cxt);
+        View view = LayoutInflater.from(cxt).inflate(R.layout.toast_dialog_progress, null);
+        progressDialog.tvMsg = view.findViewById(R.id.tv_msg);
+        progressDialog.progressBar = view.findViewById(R.id.m_progress_bar);
+        progressDialog.tvMsg.setText(msg);
+        progressDialog.setContentView(view);
+        Window window = progressDialog.getWindow();
+        if (null != window) {
+            View v = window.findViewById(R.id.design_bottom_sheet);
+            if (null != v) {
+                v.setBackgroundResource(android.R.color.transparent);
+            }
+        }
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        return progressDialog;
+    }
+
     public interface OnBtnClickListener {
         public void onOkClick();
 
         public void onCancelClick();
     }
+
+    public interface DismissAction {
+        public void action();
+    }
+
 }
 
