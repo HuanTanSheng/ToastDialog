@@ -306,7 +306,6 @@ public class ToastDialog extends BottomSheetDialog {
         });
     }
 
-
     public static ToastDialog showLoading(String msg) {
         Activity cxt = EToastUtils.getInstance().getActivity();
         ToastDialog loading = new ToastDialog(cxt);
@@ -350,7 +349,6 @@ public class ToastDialog extends BottomSheetDialog {
     public static ToastDialog showLoading() {
         return showLoading("正在加载");
     }
-
 
     public static ToastDialog showProgress(String msg) {
         Activity cxt = EToastUtils.getInstance().getActivity();
