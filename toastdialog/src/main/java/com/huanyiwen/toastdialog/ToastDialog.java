@@ -251,7 +251,6 @@ public class ToastDialog extends BottomSheetDialog {
 
     }
 
-
     public static void show(final String msg, final OnBtnClickListener listener) {
         final Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
