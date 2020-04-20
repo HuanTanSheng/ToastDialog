@@ -3,6 +3,7 @@ package com.huanyiwen.toastdialog;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mic.etoast2.EToastUtils;
 
@@ -24,13 +27,16 @@ public class ToastDialog extends BottomSheetDialog {
         super(context);
     }
 
-
-    private ToastDialog(@NonNull Context context, String msg) {
-        super(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.toast_dialog_simple, null);
-        tvMsg = view.findViewById(R.id.tv_msg);
-        tvMsg.setText(msg);
-        this.setContentView(view);
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        View parent = (View) view.getParent();
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
+        view.measure(0, 0);
+        behavior.setPeekHeight(view.getMeasuredHeight());
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
+        params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+        parent.setLayoutParams(params);
         Window window = getWindow();
         if (null != window) {
             View v = window.findViewById(R.id.design_bottom_sheet);
@@ -40,19 +46,20 @@ public class ToastDialog extends BottomSheetDialog {
         }
     }
 
+    private ToastDialog(@NonNull Context context, String msg) {
+        super(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.toast_dialog_simple, null);
+        tvMsg = view.findViewById(R.id.tv_msg);
+        tvMsg.setText(msg);
+        this.setContentView(view);
+    }
+
     private ToastDialog(@NonNull Context context, @StringRes int msg) {
         super(context);
         View view = LayoutInflater.from(context).inflate(R.layout.toast_dialog_simple, null);
         tvMsg = view.findViewById(R.id.tv_msg);
         tvMsg.setText(msg);
         this.setContentView(view);
-        Window window = getWindow();
-        if (null != window) {
-            View v = window.findViewById(R.id.design_bottom_sheet);
-            if (null != v) {
-                v.setBackgroundResource(android.R.color.transparent);
-            }
-        }
     }
 
     private ToastDialog(@NonNull Context context, String msg, final OnBtnClickListener listener) {
@@ -77,13 +84,6 @@ public class ToastDialog extends BottomSheetDialog {
         });
 
         this.setContentView(view);
-        Window window = getWindow();
-        if (null != window) {
-            View v = window.findViewById(R.id.design_bottom_sheet);
-            if (null != v) {
-                v.setBackgroundResource(android.R.color.transparent);
-            }
-        }
     }
 
     private ToastDialog(@NonNull Context context, @StringRes int msg,
@@ -110,13 +110,6 @@ public class ToastDialog extends BottomSheetDialog {
         });
 
         this.setContentView(view);
-        Window window = getWindow();
-        if (null != window) {
-            View v = window.findViewById(R.id.design_bottom_sheet);
-            if (null != v) {
-                v.setBackgroundResource(android.R.color.transparent);
-            }
-        }
     }
 
     public static void show(final String msg) {
@@ -313,13 +306,7 @@ public class ToastDialog extends BottomSheetDialog {
         loading.tvMsg = view.findViewById(R.id.tv_msg);
         loading.tvMsg.setText(msg);
         loading.setContentView(view);
-        Window window = loading.getWindow();
-        if (null != window) {
-            View v = window.findViewById(R.id.design_bottom_sheet);
-            if (null != v) {
-                v.setBackgroundResource(android.R.color.transparent);
-            }
-        }
+
         loading.setCancelable(false);
         loading.setCanceledOnTouchOutside(false);
         loading.show();
@@ -333,13 +320,7 @@ public class ToastDialog extends BottomSheetDialog {
         loading.tvMsg = view.findViewById(R.id.tv_msg);
         loading.tvMsg.setText(msg);
         loading.setContentView(view);
-        Window window = loading.getWindow();
-        if (null != window) {
-            View v = window.findViewById(R.id.design_bottom_sheet);
-            if (null != v) {
-                v.setBackgroundResource(android.R.color.transparent);
-            }
-        }
+
         loading.setCancelable(false);
         loading.setCanceledOnTouchOutside(false);
         loading.show();
@@ -358,13 +339,7 @@ public class ToastDialog extends BottomSheetDialog {
         progressDialog.progressBar = view.findViewById(R.id.m_progress_bar);
         progressDialog.tvMsg.setText(msg);
         progressDialog.setContentView(view);
-        Window window = progressDialog.getWindow();
-        if (null != window) {
-            View v = window.findViewById(R.id.design_bottom_sheet);
-            if (null != v) {
-                v.setBackgroundResource(android.R.color.transparent);
-            }
-        }
+
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -379,13 +354,7 @@ public class ToastDialog extends BottomSheetDialog {
         progressDialog.progressBar = view.findViewById(R.id.m_progress_bar);
         progressDialog.tvMsg.setText(msg);
         progressDialog.setContentView(view);
-        Window window = progressDialog.getWindow();
-        if (null != window) {
-            View v = window.findViewById(R.id.design_bottom_sheet);
-            if (null != v) {
-                v.setBackgroundResource(android.R.color.transparent);
-            }
-        }
+
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
