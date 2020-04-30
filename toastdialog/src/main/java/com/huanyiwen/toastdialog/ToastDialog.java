@@ -361,6 +361,16 @@ public class ToastDialog extends BottomSheetDialog {
         return progressDialog;
     }
 
+    public static ToastDialog showCustom(View view,boolean cancelable) {
+        Activity cxt = EToastUtils.getInstance().getActivity();
+        ToastDialog customDialog = new ToastDialog(cxt);
+        customDialog.setContentView(view);
+        customDialog.setCancelable(cancelable);
+        customDialog.setCanceledOnTouchOutside(cancelable);
+        customDialog.show();
+        return customDialog;
+    }
+
     public interface OnBtnClickListener {
         public void onOkClick();
 
