@@ -34,7 +34,8 @@ public class ToastDialog extends BottomSheetDialog {
         BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
         view.measure(0, 0);
         behavior.setPeekHeight(view.getMeasuredHeight());
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
+        CoordinatorLayout.LayoutParams params =
+                (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
         params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
         parent.setLayoutParams(params);
         Window window = getWindow();
@@ -174,7 +175,7 @@ public class ToastDialog extends BottomSheetDialog {
 
     }
 
-    public static void show(final String msg,final DismissAction action) {
+    public static void show(final String msg, final DismissAction action) {
         final Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
             action.action();
@@ -209,7 +210,7 @@ public class ToastDialog extends BottomSheetDialog {
 
     }
 
-    public static void show(@StringRes final int msg,final DismissAction action) {
+    public static void show(@StringRes final int msg, final DismissAction action) {
         final Activity cxt = EToastUtils.getInstance().getActivity();
         if (null == cxt) {
             action.action();
@@ -361,13 +362,14 @@ public class ToastDialog extends BottomSheetDialog {
         return progressDialog;
     }
 
-    public static ToastDialog showCustom(View view,boolean cancelable) {
+    public static ToastDialog showCustom(View view, boolean cancelable,
+                                         boolean touchOutsideCancelable) {
         Activity cxt = EToastUtils.getInstance().getActivity();
         ToastDialog customDialog = new ToastDialog(cxt);
 
         customDialog.setContentView(view);
         customDialog.setCancelable(cancelable);
-        customDialog.setCanceledOnTouchOutside(cancelable);
+        customDialog.setCanceledOnTouchOutside(touchOutsideCancelable);
 
         customDialog.show();
         return customDialog;
