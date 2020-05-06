@@ -33,6 +33,8 @@ public class ToastDialog extends BottomSheetDialog {
     public void setContentView(View view) {
         super.setContentView(view);
         View parent = (View) view.getParent();
+        CoordinatorLayout.LayoutParams params =
+                (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
         BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
         view.measure(0, 0);
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -44,13 +46,14 @@ public class ToastDialog extends BottomSheetDialog {
             //屏幕宽度算法:屏幕宽度（像素）/屏幕密度
             int screenHeight = (int) (height / density);//屏幕高度(dp)
             behavior.setPeekHeight(screenHeight);
+            params.height = screenHeight;
         } else {
             behavior.setPeekHeight(view.getMeasuredHeight() + 160);
+            params.height = view.getMeasuredHeight() + 160;
         }
 
-        CoordinatorLayout.LayoutParams params =
-                (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
-        params.gravity = Gravity.CENTER;
+
+        params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
         parent.setLayoutParams(params);
         Window window = getWindow();
         if (null != window) {
