@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showToast(View view) {
-        ToastDialog.show("测试成功", new ToastDialog.OnBtnClickListener() {
+        ToastDialog.show("请选择支持投屏的播放器\n投屏", new ToastDialog.OnBtnClickListener() {
             @Override
             public void onOkClick() {
 
