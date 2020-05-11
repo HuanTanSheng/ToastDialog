@@ -1,6 +1,7 @@
 package com.huanyiwen.toastdialog;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.DisplayMetrics;
@@ -15,53 +16,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mic.etoast2.EToastUtils;
 
-public class ToastDialog extends BottomSheetDialog {
+public class ToastDialog extends Dialog {
 
     public TextView tvMsg;
     public ProgressBar progressBar;
 
     private ToastDialog(@NonNull Context context) {
         super(context);
-    }
-
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(view);
-        View parent = (View) view.getParent();
-        CoordinatorLayout.LayoutParams params =
-                (CoordinatorLayout.LayoutParams) parent.getLayoutParams();
-        BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
-        view.measure(0, 0);
-        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        if (wm != null) {
-            wm.getDefaultDisplay().getMetrics(dm);
-            int height = dm.heightPixels; // 屏幕高度（像素）
-            float density = dm.density;//屏幕密度（0.75 / 1.0 / 1.5）
-            //屏幕宽度算法:屏幕宽度（像素）/屏幕密度
-            int screenHeight = (int) (height / density);//屏幕高度(dp)
-            behavior.setPeekHeight(screenHeight);
-            params.height = screenHeight;
-        } else {
-            behavior.setPeekHeight(view.getMeasuredHeight() + 160);
-            params.height = view.getMeasuredHeight() + 160;
-        }
-
-
-        params.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
-        parent.setLayoutParams(params);
-        Window window = getWindow();
-        if (null != window) {
-            View v = window.findViewById(R.id.design_bottom_sheet);
-            if (null != v) {
-                v.setBackgroundResource(android.R.color.transparent);
-            }
-        }
     }
 
     private ToastDialog(@NonNull Context context, String msg) {

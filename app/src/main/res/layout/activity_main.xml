@@ -11,12 +11,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="showToast"
-        android:text="弹出Toast" />
+        android:text="弹出action" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="showLoading"
         android:text="弹出Loading" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showToastSimple"
+        android:text="弹出toast" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showProgress"
+        android:text="弹出progress" />
+
+
 
 </LinearLayout>

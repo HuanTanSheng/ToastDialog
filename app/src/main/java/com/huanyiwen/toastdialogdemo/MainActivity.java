@@ -10,7 +10,6 @@ import com.huanyiwen.toastdialog.ToastDialog;
 
 public class MainActivity extends AppCompatActivity {
 
-    ToastDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,24 +30,38 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void showLoading(View view) {
-        if (null == dialog) {
-            dialog = ToastDialog.showLoading();
-            new TextView(this).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    dialog.dismiss();
-                }
-            }, 2000);
-            return;
-        }
+    public void showToastSimple(View view) {
+        ToastDialog.show("sdf");
+    }
 
-        dialog.show();
-        new TextView(this).postDelayed(new Runnable() {
+    public void showLoading(View view) {
+
+        final ToastDialog dialog = ToastDialog.showLoading();
+        view.postDelayed(new Runnable() {
             @Override
             public void run() {
                 dialog.dismiss();
             }
         }, 2000);
+
     }
+
+    public void showProgress(View view) {
+
+        final ToastDialog dialog = ToastDialog.showProgress("sss");
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.progressBar.setProgress(50);
+            }
+        }, 1500);
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 3000);
+
+    }
+
 }
