@@ -29,10 +29,13 @@ public class ToastDialog extends Dialog {
 
     private ToastDialog(@NonNull Context context) {
         super(context);
+        Window window = getWindow();
+        if (null != window)
+            window.requestFeature(Window.FEATURE_NO_TITLE);
     }
 
     private ToastDialog(@NonNull Context context, String msg) {
-        super(context);
+        this(context);
         View view = LayoutInflater.from(context).inflate(R.layout.toast_dialog_simple, null);
         tvMsg = view.findViewById(R.id.tv_msg);
         tvMsg.setText(msg);
@@ -40,7 +43,7 @@ public class ToastDialog extends Dialog {
     }
 
     private ToastDialog(@NonNull Context context, @StringRes int msg) {
-        super(context);
+        this(context);
         View view = LayoutInflater.from(context).inflate(R.layout.toast_dialog_simple, null);
         tvMsg = view.findViewById(R.id.tv_msg);
         tvMsg.setText(msg);
@@ -48,7 +51,7 @@ public class ToastDialog extends Dialog {
     }
 
     private ToastDialog(@NonNull Context context, String msg, final OnBtnClickListener listener) {
-        super(context);
+        this(context);
         View view = LayoutInflater.from(context).inflate(R.layout.toast_dialog_action, null);
         tvMsg = view.findViewById(R.id.tv_msg);
         tvMsg.setText(msg);
@@ -74,7 +77,7 @@ public class ToastDialog extends Dialog {
     private ToastDialog(@NonNull Context context, @StringRes int msg,
                         final OnBtnClickListener listener) {
 
-        super(context);
+        this(context);
         View view = LayoutInflater.from(context).inflate(R.layout.toast_dialog_action, null);
         tvMsg = view.findViewById(R.id.tv_msg);
         tvMsg.setText(msg);
