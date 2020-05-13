@@ -30,8 +30,9 @@ public class ToastDialog extends Dialog {
     private ToastDialog(@NonNull Context context) {
         super(context);
         Window window = getWindow();
-        if (null != window)
+        if (null != window) {
             window.requestFeature(Window.FEATURE_NO_TITLE);
+        }
     }
 
     private ToastDialog(@NonNull Context context, String msg) {
