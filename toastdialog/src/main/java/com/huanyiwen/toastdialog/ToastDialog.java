@@ -363,6 +363,19 @@ public class ToastDialog extends Dialog {
         return customDialog;
     }
 
+    @Override
+    public void show() {
+        Window window = getWindow();
+        if (null != window) {
+            WindowManager.LayoutParams attributes = window.getAttributes();
+            window.setGravity(Gravity.CENTER);
+            attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
+            attributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(attributes);
+        }
+        super.show();
+    }
+
     public interface OnBtnClickListener {
         public void onOkClick();
 
