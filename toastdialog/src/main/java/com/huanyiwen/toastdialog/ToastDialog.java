@@ -368,6 +368,7 @@ public class ToastDialog extends Dialog {
         Window window = getWindow();
         if (null != window) {
             WindowManager.LayoutParams attributes = window.getAttributes();
+            window.setBackgroundDrawableResource(R.color.toast_dialog_transparent);
             window.setGravity(Gravity.CENTER);
             attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
             attributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
