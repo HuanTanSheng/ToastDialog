@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -356,6 +357,19 @@ public class ToastDialog extends Dialog {
         ToastDialog customDialog = new ToastDialog(cxt);
 
         customDialog.setContentView(view);
+        customDialog.setCancelable(cancelable);
+        customDialog.setCanceledOnTouchOutside(touchOutsideCancelable);
+
+        customDialog.show();
+        return customDialog;
+    }
+
+    public static ToastDialog showCustom(@LayoutRes int layoutId, boolean cancelable,
+                                         boolean touchOutsideCancelable) {
+        Activity cxt = EToastUtils.getInstance().getActivity();
+        ToastDialog customDialog = new ToastDialog(cxt);
+
+        customDialog.setContentView(layoutId);
         customDialog.setCancelable(cancelable);
         customDialog.setCanceledOnTouchOutside(touchOutsideCancelable);
 
